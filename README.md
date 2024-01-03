@@ -22,6 +22,13 @@
 
 ## How To Use
 
+### Enviroment
+Get your Bitly Bearer token from [Bitly's API](https://app.bitly.com/settings/api)
+
+```bash
+BEARER_TOKEN=
+``` 
+
 ### Run the app
 ```bash
 # Clone this repository
@@ -35,8 +42,6 @@ $ npm install
 
 # Run the app
 $ npm run dev
-
-# Open your app in the designated port (Default http://localhost:3000)
 ```
 
 ### Use the app
