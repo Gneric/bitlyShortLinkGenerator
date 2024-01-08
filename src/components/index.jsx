@@ -37,37 +37,41 @@ export default function MainPage() {
   };
 
   return (
-    <div className="w-screen h-screen grid place-items-center">
-        <div className="flex flex-col w-2/6">
-          <div className="my-5 text-center" >
-            <p>Simple Link Shortener</p>
-          </div>        
-          <div className="flex flex-row items-center justify-around">
-            <Input 
-              id="longUrlTextBox" 
-              className="w-4/5 mr-5"
-              value={inputValue}
-              onChange={handleInputChange}
-            />
-            <Button color="primary" onPress={handleButtonPress}>Shorten</Button>
+    <div className="flex flex-col w-screen h-screen">
+        <nav className="bg-slate-900 h-20" >
+            <div className="my-5 text-center" >
+              <p>Simple Link Shortener</p>
+            </div>  
+        </nav>
+        <main className="bg-slate-800 flex-1 grid place-items-center">
+          <div className="flex flex-col">      
+            <div className="flex flex-row items-center justify-around">
+              <Input 
+                id="longUrlTextBox" 
+                className="min-w-48 w-4/5 mr-5"
+                value={inputValue}
+                onChange={handleInputChange}
+              />
+              <Button color="primary" onPress={handleButtonPress}>Shorten</Button>
+            </div>
+            <div className="my-5 w-1/2 mx-auto" >
+                <Card 
+                  isDisabled={isButtonPressed} 
+                  isPressable={!isButtonPressed} 
+                  id="shortUrlTextCard" 
+                  allowTextSelectionOnPress 
+                  className="w-full" 
+                  onPress={handleCopyToClipboard}
+                >
+                  <CardBody className="select-none">
+                    <p className="text-center" >
+                      { outputValue }
+                    </p>
+                  </CardBody>
+                </Card>
+            </div>
           </div>
-          <div className="my-5 w-1/2 mx-auto" >
-              <Card 
-                isDisabled={isButtonPressed} 
-                isPressable={!isButtonPressed} 
-                id="shortUrlTextCard" 
-                allowTextSelectionOnPress 
-                className="w-full" 
-                onPress={handleCopyToClipboard}
-              >
-                <CardBody className="select-none">
-                  <p className="text-center" >
-                    { outputValue }
-                  </p>
-                </CardBody>
-              </Card>
-          </div>
-        </div>
+        </main>
     </div>
   )
 }
