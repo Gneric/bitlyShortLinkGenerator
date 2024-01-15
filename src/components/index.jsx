@@ -1,13 +1,18 @@
 'use client'
 
 import { Input, Button, Card, CardBody } from "@nextui-org/react";
-import { useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
+import { ModalContext } from '@/context/modalContext';
+import CustomModal from '@/components/modal'
 import copy from 'copy-to-clipboard';
 
 export default function MainPage() {
   const [isButtonPressed, setButtonPressed] = useState(true);
+  const {bitlyKeyInput, setbitlyKeyInput} = useContext(ModalContext);
   const [inputValue, setInputValue] = useState('');
   const [outputValue, setOutputValue] = useState('Waiting ...')
+
+  console.log('testingContext: ', bitlyKeyInput )
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -20,7 +25,7 @@ export default function MainPage() {
       const response = await fetch(`/api/bitly`, { 
         method: 'POST', 
         headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({ inputValue })
+        body: JSON.stringify({ inputValue, bitlyKey: bitlyKeyInput })
       })
       console.log(response)
       if (!response.ok) throw new Error('Failed to fetch data')
@@ -41,10 +46,11 @@ export default function MainPage() {
         <nav className="bg-slate-900 h-20" >
             <div className="my-5 text-center" >
               <p>Simple Link Shortener</p>
-            </div>  
+            </div>
+            <CustomModal></CustomModal>
         </nav>
         <main className="bg-slate-800 flex-1 grid place-items-center">
-          <div className="flex flex-col">      
+          <div className="flex flex-col w-4/6 ">      
             <div className="flex flex-row items-center justify-around">
               <Input 
                 id="longUrlTextBox" 
