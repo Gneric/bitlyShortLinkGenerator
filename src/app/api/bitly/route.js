@@ -12,6 +12,5 @@ export async function POST(req) {
     body: JSON.stringify({ long_url: inputValue }),
   }) 
   const data = await res.json()
- 
   return Response.json(data)
 }

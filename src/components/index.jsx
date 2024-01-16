@@ -20,16 +20,14 @@ export default function MainPage() {
 
   const handleButtonPress = async () => {
     try {
-      setButtonPressed(false);
       console.log(JSON.stringify({ inputValue }))
       const response = await fetch(`/api/bitly`, { 
         method: 'POST', 
         headers: {'Content-Type': 'application/json'}, 
         body: JSON.stringify({ inputValue, bitlyKey: bitlyKeyInput })
       })
-      console.log(response)
-      if (!response.ok) throw new Error('Failed to fetch data')
       const data = await response.json()
+      if (data.message=="FORBIDDEN") throw new Error('Failed to fetch data with the current bitly key')
       setOutputValue(data.link)
       setInputValue('')
     } catch (error) {
@@ -43,11 +41,13 @@ export default function MainPage() {
 
   return (
     <div className="flex flex-col w-screen h-screen">
-        <nav className="bg-slate-900 h-20" >
-            <div className="my-5 text-center" >
+        <nav className="bg-slate-900 h-20 flex flex-row" >
+            <div className="grid place-items-center flex-1 my-5 text-center" >
               <p>Simple Link Shortener</p>
             </div>
-            <CustomModal></CustomModal>
+            <div className="grid place-items-center px-5" >
+              <CustomModal></CustomModal>
+            </div>
         </nav>
         <main className="bg-slate-800 flex-1 grid place-items-center">
           <div className="flex flex-col w-4/6 ">      

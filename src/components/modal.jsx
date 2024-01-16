@@ -14,13 +14,13 @@ export default function App() {
 
     return (
         <>
-        <Button onPress={onOpen}>Open Modal</Button>
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <Button onPress={onOpen}>Settings</Button>
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="bg-slate-800" >
             <ModalContent>
             {(onClose) => (
                 <>
-                <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
-                <ModalBody>
+                <ModalHeader className="flex flex-col gap-1">Insert your Bitly Key</ModalHeader>
+                <ModalBody className="pb-8">
                     <Input 
                         id="bitlyKeyInput" 
                         className="min-w-48 w-4/5 mr-5"
@@ -28,14 +28,6 @@ export default function App() {
                         onChange={handleInputChange}
                     />
                 </ModalBody>
-                <ModalFooter>
-                    <Button color="danger" variant="light" onPress={onClose}>
-                    Close
-                    </Button>
-                    <Button color="primary" onPress={onClose}>
-                    Save
-                    </Button>
-                </ModalFooter>
                 </>
             )}
             </ModalContent>
