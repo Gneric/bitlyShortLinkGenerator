@@ -5,7 +5,7 @@ import { createContext, useContext, useState } from 'react';
 export const ModalContext = createContext();
 
 export const ContextProvider = ({ children }) => {
-  const [bitlyKeyInput, setbitlyKeyInput] = useState('');
+  const [bitlyKeyInput, setbitlyKeyInput] = useState('Y0URAW3S0M3B1TLYK3Y');
 
   console.log("bitlyKeyInput:", bitlyKeyInput);
 

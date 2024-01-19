@@ -20,16 +20,18 @@ export default function MainPage() {
 
   const handleButtonPress = async () => {
     try {
-      console.log(JSON.stringify({ inputValue }))
       const response = await fetch(`/api/bitly`, { 
         method: 'POST', 
         headers: {'Content-Type': 'application/json'}, 
         body: JSON.stringify({ inputValue, bitlyKey: bitlyKeyInput })
       })
       const data = await response.json()
-      if (data.message=="FORBIDDEN") throw new Error('Failed to fetch data with the current bitly key')
-      setOutputValue(data.link)
-      setInputValue('')
+      if (data.message=="FORBIDDEN") {
+        throw new Error('Failed to fetch data with the current bitly key')
+      } else {
+        setOutputValue(data.link)
+        setInputValue('')
+      }
     } catch (error) {
       console.error('Error:', error.message)
     }
@@ -41,26 +43,32 @@ export default function MainPage() {
 
   return (
     <div className="flex flex-col w-screen h-screen">
-        <nav className="bg-slate-900 h-20 flex flex-row" >
-            <div className="grid place-items-center flex-1 my-5 text-center" >
-              <p>Simple Link Shortener</p>
-            </div>
-            <div className="grid place-items-center px-5" >
-              <CustomModal></CustomModal>
+        <nav className="bg-[#020024] h-20 flex flex-row" >
+            <div className="grid place-items-center flex-1 text-center" >
+              <p className="text-3xl font-extrabold font-mono">
+                Simple Bitly Link Shortener
+              </p>
             </div>
         </nav>
-        <main className="bg-slate-800 flex-1 grid place-items-center">
+        <main className="bg-[#010104] flex-1 grid place-items-center">
+          <div className="absolute top-24 right-3 opacity-35" >
+              <CustomModal></CustomModal>
+          </div>
           <div className="flex flex-col w-4/6 ">      
-            <div className="flex flex-row items-center justify-around">
+            <div className="flex flex-row flex-wrap items-center justify-center">
               <Input 
                 id="longUrlTextBox" 
-                className="min-w-48 w-4/5 mr-5"
+                className="w-3/5 mr-5 min-w-72 mt-5"
                 value={inputValue}
                 onChange={handleInputChange}
               />
-              <Button color="primary" onPress={handleButtonPress}>Shorten</Button>
+              <Button 
+                color="primary" 
+                onPress={handleButtonPress}
+                className="min-w-10 mt-5"
+              >Shorten</Button>
             </div>
-            <div className="my-5 w-1/2 mx-auto" >
+            <div className="my-5 w-1/3 mx-auto min-w-52" >
                 <Card 
                   isDisabled={isButtonPressed} 
                   isPressable={!isButtonPressed} 
